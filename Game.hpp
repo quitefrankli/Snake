@@ -7,6 +7,7 @@
 #include "Graphics.hpp"
 #include "AI.hpp"
 
+// main game logic
 class Game {
 private:
     int blocksAcross = 50; //how many blocks should fill row-wise
@@ -19,9 +20,9 @@ private:
     double pixelHeight = 2.0 / Graphics::windowHeight;
     double standardVelocity = 1; //must be 1 atm
 
-    const int numberOfSnakeAI = 50;
-    const int numberOfSnake = 1;
-    const int numberOfFood = 3;
+    const int numberOfSnakeAI = 0; // at the moment the AI snake does nothing but moves randomly and competes with player for food
+    const int numberOfSnake = 1; // player
+    const int numberOfFood = 1; // at any one time
     
     double scorePosX = 0.5;
     double scorePosY = 0.5;
@@ -37,8 +38,10 @@ private:
     bool gameOverBool = false;
     
 public:
+    Game();
+    ~Game();
+
     bool sequence();
-    
     unsigned getTickCounter() { return tickCounter; }
     void clearTickCounter() { tickCounter = 0; }
     void incrementTickCounter() { tickCounter++; }
@@ -71,9 +74,6 @@ public:
     void updateGrid();
     void updateGrid(Object *basePointer);
 
-    Game();
-    ~Game();
-    
     void updatePositions(); //every positional change should be reflected here otherwise it could break the grid
     void checkCollisions();
     void gameOver();

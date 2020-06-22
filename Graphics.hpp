@@ -1,6 +1,7 @@
 #ifndef Graphics_hpp
 #define Graphics_hpp
 
+// defines graphics options
 namespace Graphics {
     static bool fullScreen = false;
     static bool transparent = true;

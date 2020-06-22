@@ -17,7 +17,7 @@ void KeyManager::keyDown(unsigned char key, int x, int y) {
             game.quit();
             break;
         case 'f':
-            //Graphics::toggleFullScreen();
+            Graphics::toggleFullScreen();
             break;
         case 'p':
             game.togglePause();

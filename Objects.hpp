@@ -4,8 +4,9 @@
 #include <memory>
 #include <vector>
 
+// base game object class think actor
 class Object {
-public: //Functions
+public:
     Object();
     Object(double x, double y, double r, double g, double b);
     Object(float x, float y, float r, float g, float b, float alpha);
@@ -38,6 +39,7 @@ private: //Data
 	uint32_t id;
 };
 
+// for more advanced AIs that use vision to move
 class Vision { //coded under the assumption that vision size does not change
 private:
     int size = 1; //default meaning 1 block in each direction
@@ -49,6 +51,7 @@ public:
     void sync(int x, int y);
 };
 
+// main snake player
 class Snake: public Object {
 private:
     int direction;
@@ -74,16 +77,16 @@ public:
     void drawTransparent();
 };
 
-
-
+// snakes need food to grow
 class Food: public Object {
 public:
     Food();
 	~Food() {};
-    //void reset();
-    void randomise();
+
+    void reset();
 };
 
+// boundaries of the game should a snake touch it, it dies
 class Wall: public Object {
 public:
     Wall(double x, double y, double r, double g, double b);

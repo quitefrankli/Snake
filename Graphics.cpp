@@ -2,9 +2,8 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#include <GL.H>
-#include <GLU.H>
-#include <glut.h>
+#include <GL/GL.h>
+#include <GL/freeglut.h>
 #elif defined(__APPLE__)
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" //Removes annoying warnings
 #include <unistd.h>
@@ -34,8 +33,13 @@ void Graphics::display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     game.drawAll();
+
     //transparent stuff must be drawn after
-    if (transparent) game.drawTransparent();
+
+    // these showcase a dropped suggestion to increase the complexity of the original game
+    //if (transparent) 
+    //    game.drawTransparent();
+
     interfaceObj.draw();
     
     glutSwapBuffers();

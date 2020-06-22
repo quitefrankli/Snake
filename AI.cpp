@@ -1,13 +1,16 @@
 #include "AI.hpp"
 #include "Game.hpp"
-#include "General.hpp"
 
 extern Game game;
 
+void randomise(double& x, double& y);
+
 using namespace std;
 
+// there were plans to add a more advanced AI
+// but decided to shift back to more traditional player vs environment game
 SnakeAI::SnakeAI() {
-    General::randomise(getPosY(), getPosY());
+    randomise(getPosY(), getPosY());
     setID(game.SNAKE_AI_BODY);
 }
 
@@ -44,6 +47,7 @@ void SnakeAI::changeDirection() {
 //        if (left) setDirection(game.RIGHT);
 //        else if
 //    }
+
     else if (getDirection() != randomValue * (-1))
         setDirection(randomValue);
 }

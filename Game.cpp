@@ -55,7 +55,6 @@ Game::~Game() {
     snake.clear();
     snakeAI.clear();
     food.clear();
-	//grid.~unique_ptr(); //Gives exception when used on windows
 }
 
 void Game::updatePositions() {
@@ -144,7 +143,7 @@ bool Game::sequence() {
                 clearTickCounter();
                 Graphics::display();
             } else {
-                incrementTickCounter();
+                incrementTickCounter(); // for fps
             }
         }
     } else {

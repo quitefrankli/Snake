@@ -10,6 +10,7 @@ struct Specs {
 	float lineWidth;
 };
 
+// responsible for displaying score and other utilities
 class Interface {
 private:
     bool boolGrid = false;
@@ -24,13 +25,8 @@ public:
     void drawString(std::string str); //might be good idea to use reference as this copies the string which isn't necessary
     //probably is easier usually to just use the simpler one
     void drawString(float x, float y, float r, float g, float b, std::string str);
-    
-    void drawString(Specs s, std::string str);
-    
     void drawGrid();
     void setDrawGrid(bool val) { boolGrid = val; }
-    
-    void drawCount();
 };
 
 #endif

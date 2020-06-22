@@ -2,9 +2,8 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#include <GL.H>
-#include <GLU.H>
-#include <glut.h>
+#include <GL/GL.h>
+#include <GL/freeglut.h>
 #elif defined(__APPLE__)
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" //Removes annoying warnings
 #include <unistd.h>
@@ -23,9 +22,10 @@ std::exit(0);
 #include "Objects.hpp"
 #include "Game.hpp"
 #include "Interface.hpp"
-#include "General.hpp"
 
 using namespace std;
+
+void randomise(double& x, double& y);
 
 extern Game game;
 extern Interface interfaceObj;
@@ -149,15 +149,15 @@ bool Snake::checkCollisions(unsigned *num, double *x, double *y) {
         tmpY == 0 ||
         tmpY == game.getBlocksAcross()-1) return true;
     
-//    //check for collision with self
-//    vector<unique_ptr<Object>>::iterator itBody;
-//    for (itBody = body.begin() + 1; itBody < body.end(); itBody++)
-//         if (tmpX == (*itBody)->getPosX() && tmpY == (*itBody)->getPosY()) return true;
+    //check for collision with self
+    vector<unique_ptr<Object>>::iterator itBody;
+    for (itBody = body.begin() + 1; itBody < body.end(); itBody++)
+         if (tmpX == (*itBody)->getPosX() && tmpY == (*itBody)->getPosY()) return true;
     
     //check for collision with food
     for (auto &ptr : game.food) {
         if (tmpX == ptr->getPosX() && tmpY == ptr->getPosY()) {
-            ptr->randomise();
+            ptr->reset();
             this->grow();
         }
     }
@@ -205,11 +205,11 @@ void Wall::sequence() {
 
 Food::Food() {
     setRGB(1, 0.3, 0);
-    randomise();
+    reset();
 }
 
-void Food::randomise() {
-    General::randomise(getPosX(), getPosY());
+void Food::reset() {
+    randomise(getPosX(), getPosY());
 }
 
 Vision::Vision(int x, int y, int size) {

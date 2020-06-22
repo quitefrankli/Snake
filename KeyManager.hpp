@@ -1,6 +1,7 @@
 #ifndef KeyManager_hpp
 #define KeyManager_hpp
 
+// responsible for player input
 namespace KeyManager {
     static int key[256];
     

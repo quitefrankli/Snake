@@ -2,9 +2,8 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#include <GL.H>
-#include <GLU.H>
-#include <glut.h>
+#include <GL/GL.h>
+#include <GL/freeglut.h>
 #elif defined(__APPLE__)
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" //Removes annoying warnings
 #include <unistd.h>
@@ -31,28 +30,30 @@ mt19937 randGen(rd()); //Standard mersenne_twister_engine seeded with rd()
 Game game;
 Interface interfaceObj;
 
-void initialise() {
+void randomise(double& x, double& y) {
+    static uniform_int_distribution<> disX(1, game.getBlocksAcross() - 2);
+    static uniform_int_distribution<> disY(1, game.getBlocksDown() - 2);
+    x = disX(randGen);
+    y = disY(randGen);
 }
+
 int main(int argc, char *argv[]) {
-    //initialise();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowPosition(Graphics::windowsPosX, Graphics::windowsPosY);
     glutInitWindowSize(Graphics::windowWidth, Graphics::windowHeight);
     glutCreateWindow("Snake");
     glEnable(GL_BLEND); //allows for translucency and blends colour already computer with those in buffer
-    if (Graphics::antiAliasing) glEnable(GL_LINE_SMOOTH); //anti-aliasing (NOTE VERY COMPUTATIONALLY INTENSIVE AT LEAST GRAPHICALLY)
+    if (Graphics::antiAliasing) 
+        glEnable(GL_LINE_SMOOTH); //anti-aliasing (NOTE VERY COMPUTATIONALLY INTENSIVE)
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glutDisplayFunc(Graphics::display);
-    //glutReshapeFunc(reshape);
     glutIdleFunc(Graphics::idle);
     glutKeyboardFunc(KeyManager::keyDown);
     glutKeyboardUpFunc(KeyManager::keyUp);
     glutSpecialFunc(KeyManager::specialKeyDown);
     glutSpecialUpFunc(KeyManager::specialKeyUp);
     glutMainLoop();
-    
-    return 0;
 }
 
