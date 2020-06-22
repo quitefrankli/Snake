@@ -8,7 +8,6 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" //Removes annoying warnings
 #include <unistd.h>
 #include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
 #include <GLUT/glut.h>
 #else
 std::exit(0);
